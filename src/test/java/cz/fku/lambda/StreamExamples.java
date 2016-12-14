@@ -3,13 +3,17 @@ package cz.fku.lambda;
 import cz.fku.music.Artist;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -25,7 +29,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class StreamExamples {
 
+    final private org.slf4j.Logger logger = LoggerFactory.getLogger(StreamExamples.class);
+
     private Collection<Artist> allArtists = new HashSet<>();
+
+    private  Stream<String> linesOfSentence;
 
     @Before
     public void createAllArtists() {
@@ -39,6 +47,16 @@ public class StreamExamples {
         a = new Artist("John Lennon");
         //a.setOrigin("USA");
         allArtists.add(a);
+
+        //Load file from resources
+        ClassLoader classLoader = StreamExamples.class.getClassLoader();
+        URL url = classLoader.getResource("sentences.txt");
+
+        try {
+            linesOfSentence = Files.lines(Paths.get(url.toURI()));
+        } catch (URISyntaxException | IOException e) {
+            logger.error(e.toString());
+        }
     }
 
 // Pipelining: Many stream operations return a stream themselves.
@@ -87,5 +105,13 @@ public class StreamExamples {
                 .findFirst();
 
         result.ifPresent(x -> System.out.println(x.getName()));
+    }
+
+    @Test
+    public void flatMapTest() {
+        //The mapper function passed to flatMap splits a line, using a simple regular expression, into an array of words, and then creates a stream of words from that array.
+        Stream<String> words = linesOfSentence
+                        .flatMap(line -> Stream.of(line.split(" +")));
+        words.forEach(System.out::println);
     }
 }
