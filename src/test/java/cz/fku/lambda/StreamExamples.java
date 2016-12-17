@@ -33,8 +33,6 @@ public class StreamExamples {
 
     private Collection<Artist> allArtists = new HashSet<>();
 
-    private  Stream<String> linesOfSentence;
-
     @Before
     public void createAllArtists() {
         Artist a = new Artist("Bob Dylan");
@@ -47,6 +45,10 @@ public class StreamExamples {
         a = new Artist("John Lennon");
         //a.setOrigin("USA");
         allArtists.add(a);
+    }
+
+    private Stream<String> getNewLinesOfSentence() {
+        Stream<String> linesOfSentence = Stream.of("");
 
         //Load file from resources
         ClassLoader classLoader = StreamExamples.class.getClassLoader();
@@ -57,6 +59,8 @@ public class StreamExamples {
         } catch (URISyntaxException | IOException e) {
             logger.error(e.toString());
         }
+
+        return linesOfSentence;
     }
 
 // Pipelining: Many stream operations return a stream themselves.
@@ -110,8 +114,69 @@ public class StreamExamples {
     @Test
     public void flatMapTest() {
         //The mapper function passed to flatMap splits a line, using a simple regular expression, into an array of words, and then creates a stream of words from that array.
-        Stream<String> words = linesOfSentence
+        Stream<String> words = getNewLinesOfSentence()
                         .flatMap(line -> Stream.of(line.split(" +")));
         words.forEach(System.out::println);
+    }
+
+    @Test
+    public void maxTest(){
+        //Finde longest sentence
+
+        /** max() is specialized form of reduction operations
+         *
+         <U> U reduce(U identity,
+             BiFunction<U, ? super T, U> accumulator,
+             BinaryOperator<U> combiner);
+         *
+         * where:
+         * identity = initial seed value for the reduction and a default result if there are no input elements
+         * accumulator = function that takes a partial result and the next element, and produces a new partial result
+         * combiner = function that combines two partial results to produce a new partial result - necessary only form parallel streams
+         * (BinaryOperator is specialization of BiFunction, where BiFunction<T, T, T>)
+         *
+         * vs
+         *
+         * Mutable reduction
+         *
+         <R> R collect(Supplier<R> supplier,
+            BiConsumer<R, ? super T> accumulator,
+            BiConsumer<R, R> combiner);
+         *
+         *  where:
+         *  supplier = function to construct new instances of the result container
+         *  accumulator = function to incorporate an input element into a result container
+         *  combiner = function to merge the contents of one result container into another
+         *
+         *  The result is accumulated into mutable container instead of copying into new result set as in "odinary" reduction
+         *  **/
+
+        //Implemented as anonymous inner class
+        Optional<String> sentence1 = getNewLinesOfSentence().max(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                if(o1.length() == o2.length())
+                    return 0;
+                else if(o1.length() > o2.length())
+                    return 1;
+                else
+                    return  -1;
+            }
+        });
+
+        logger.info("sentence1: " + sentence1.get());
+
+        //Implemented as lambda
+        Optional<String> sentence2 = getNewLinesOfSentence().max(
+                Comparator.comparing(s -> s.length())
+        );
+
+        sentence2.ifPresent(value -> logger.info("sentence2: " + value));
+
+        //Implemented as method reference
+        Optional<String> sentence3 = getNewLinesOfSentence().max(
+                Comparator.comparing(String::length)
+        );
+        sentence3.ifPresent(logger::info);
     }
 }

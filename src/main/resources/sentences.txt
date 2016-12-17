@@ -1,2 +1,3 @@
 Tady je prvni veta.
-Nasleduje druha veta.
+Pak je nejdelsi veta ze vsech.
+Nasleduje treti veta.
