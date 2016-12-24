@@ -1,4 +1,4 @@
-package cz.fku.music;
+package cz.fku.music.model;
 
 import com.sun.istack.internal.NotNull;
 

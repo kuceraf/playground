@@ -1,6 +1,6 @@
 package cz.fku.lambda;
 
-import cz.fku.music.Artist;
+import cz.fku.music.model.Artist;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
@@ -168,6 +168,8 @@ public class StreamExamples {
 
         //Implemented as lambda
         Optional<String> sentence2 = getNewLinesOfSentence().max(
+                //build comparator form a given key extractor function
+                //Comparator.comparing is a function that takes a function and returns a function
                 Comparator.comparing(s -> s.length())
         );
 
