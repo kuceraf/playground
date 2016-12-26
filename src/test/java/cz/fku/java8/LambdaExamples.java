@@ -1,11 +1,9 @@
-package cz.fku.lambda;
+package cz.fku.java8;
 
 import cz.fku.other.Calculator;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;

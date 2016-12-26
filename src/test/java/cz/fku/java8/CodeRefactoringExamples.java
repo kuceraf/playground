@@ -1,4 +1,4 @@
-package cz.fku.lambda;
+package cz.fku.java8;
 
 import cz.fku.music.model.Album;
 import cz.fku.music.model.Track;

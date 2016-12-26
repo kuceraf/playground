@@ -1,4 +1,4 @@
-package cz.fku.methodreference;
+package cz.fku.java8;
 
 import org.junit.Test;
 
