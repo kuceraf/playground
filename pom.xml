@@ -6,7 +6,7 @@
 	<groupId>cz.fku</groupId>
 	<artifactId>playground</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>playground</name>
 	<description>Demo project for Spring Boot</description>
@@ -17,6 +17,11 @@
 		<version>1.4.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
+	<modules>
+		<module>webapp</module>
+		<module>app</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,6 +41,16 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<!--<dependencyManagement>-->
+		<!--<dependencies>-->
+			<!--<dependency>-->
+				<!--<groupId>org.springframework.boot</groupId>-->
+				<!--<artifactId>spring-boot-devtools</artifactId>-->
+				<!--<optional>true</optional>-->
+			<!--</dependency>-->
+		<!--</dependencies>-->
+	<!--</dependencyManagement>-->
 
 	<build>
 		<plugins>

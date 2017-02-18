@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.function.ToDoubleFunction;
 
 /**
  * Created by Filip on 26.12.2016.
