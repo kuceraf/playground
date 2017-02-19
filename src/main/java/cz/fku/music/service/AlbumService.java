@@ -6,6 +6,7 @@ import cz.fku.music.model.Track;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
