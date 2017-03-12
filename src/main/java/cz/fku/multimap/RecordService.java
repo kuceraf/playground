@@ -22,9 +22,8 @@ public class RecordService {
         return instance;
     }
 
-    private AtomicLong seq = new AtomicLong();
-
     public List<Record> generateRecords(int number, Long groupId) {
+        AtomicLong seq = new AtomicLong();
         List<Record> records = new ArrayList<>();
         for(int i = 0; i < number; i++) {
             records.add(
