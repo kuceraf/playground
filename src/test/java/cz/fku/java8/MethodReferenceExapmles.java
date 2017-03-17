@@ -3,6 +3,7 @@ package cz.fku.java8;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
 /**
@@ -55,6 +56,16 @@ public class MethodReferenceExapmles {
             collection.add(i);
         }
         return collection;
+    }
+
+    //---------------------------------
+    @Test
+    public void test() {
+        IntFunction<String> lookup = Arrays.asList("a","b","c")::get;
+    }
+
+    private void resolveTest(IntFunction<String> lookup) {
+        lookup.apply(1);
     }
 }
 

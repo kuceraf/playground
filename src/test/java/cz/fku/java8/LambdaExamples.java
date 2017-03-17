@@ -1,6 +1,7 @@
 package cz.fku.java8;
 
 import cz.fku.other.Calculator;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
@@ -78,5 +79,17 @@ public class LambdaExamples {
         };
         Integer result = echo.apply(4);
         logger.info("RESULT: " + result);
+    }
+
+    @Test
+    public void testIndentityFunction() {
+        Assert.assertEquals("aa",identityFunction().apply("aa"));
+        Assert.assertEquals("aa",identityFunction2.apply("aa"));
+    }
+
+    private static Function<String, String> identityFunction2 = vale -> vale;
+
+    private static <V> Function<V, V> identityFunction() {
+        return value -> value;
     }
 }
