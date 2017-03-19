@@ -13,7 +13,7 @@ public class Album {
 //    A list of tracks
     private List<Track> tracks;
 //    A list of artists who helped create the music on this album
-    private List<Artist> musicians;
+    private List<Artist> artists;
 
 //    GETTERS
     public String getName() {
@@ -22,8 +22,8 @@ public class Album {
     public List<Track> getTracks() {
         return tracks;
     }
-    public List<Artist> getMusicians() {
-        return musicians;
+    public List<Artist> getArtists() {
+        return artists;
     }
 
     //BUILDER
@@ -61,7 +61,7 @@ public class Album {
             Album album = new Album();
             album.tracks = this.tracks;
             album.name = this.name;
-            album.musicians = this.musicians;
+            album.artists = this.musicians;
             return album;
         }
     }

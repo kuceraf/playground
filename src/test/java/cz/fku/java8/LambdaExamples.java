@@ -1,13 +1,20 @@
 package cz.fku.java8;
 
+import cz.fku.music.model.Album;
+import cz.fku.music.model.Track;
 import cz.fku.other.Calculator;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openjdk.jmh.annotations.Benchmark;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by Filip on 27.11.2016.
@@ -74,7 +81,7 @@ public class LambdaExamples {
 
     @Test
     public void testEcho() {
-        Function<Integer,Integer> echo = (x) -> {
+        Function<Integer, Integer> echo = (x) -> {
             return 2;
         };
         Integer result = echo.apply(4);
@@ -83,13 +90,51 @@ public class LambdaExamples {
 
     @Test
     public void testIndentityFunction() {
-        Assert.assertEquals("aa",identityFunction().apply("aa"));
-        Assert.assertEquals("aa",identityFunction2.apply("aa"));
+        Assert.assertEquals("aa", identityFunction().apply("aa"));
+        Assert.assertEquals("aa", identityFunction2.apply("aa"));
     }
 
     private static Function<String, String> identityFunction2 = vale -> vale;
 
     private static <V> Function<V, V> identityFunction() {
         return value -> value;
+    }
+
+    @Test
+    @Benchmark
+    public void testCollectors() {
+        List<Track> tracks = new ArrayList<>();
+        tracks.add(
+                Track.TrackBuilder.aTrack()
+                        .withName("Track 1")
+                        .withLength(3)
+                        .build()
+        );
+
+        tracks.add(
+                Track.TrackBuilder.aTrack()
+                        .withName("Track 2")
+                        .withLength(4)
+                        .build()
+        );
+
+        tracks.add(
+                Track.TrackBuilder.aTrack()
+                        .withName("Track 3")
+                        .withLength(3)
+                        .build()
+        );
+
+
+        Album album = Album.AlbumBuilder.anAlbum()
+                .withTracks(tracks)
+                .withName("album")
+                .build();
+
+    //lambda - create
+        Map<Integer, List<Track>> tracksByLength = album.getTracks().stream()
+                .collect(Collectors.groupingBy(Track::getLength));
+
+        Assert.assertEquals(tracksByLength.get(3).size(), 2);
     }
 }
