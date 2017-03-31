@@ -1,5 +1,6 @@
 package cz.fku.java8;
 
+import cz.fku.java8.function.stream.StreamExamples;
 import cz.fku.music.model.Album;
 import cz.fku.music.model.Track;
 import cz.fku.music.service.AlbumService;

@@ -1,6 +1,5 @@
 package cz.fku.music.model;
 
-import com.sun.istack.internal.NotNull;
 
 import java.util.Collection;
 
@@ -27,7 +26,7 @@ public class Artist implements Comparable<Artist> {
     }
 
 
-    public boolean isFrom(@NotNull String location) {
+    public boolean isFrom(String location) {
             return location.equals(origin);
     }
 

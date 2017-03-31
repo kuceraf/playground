@@ -1,4 +1,4 @@
-package cz.fku.java8;
+package cz.fku.java8.function.stream;
 
 import cz.fku.music.model.Artist;
 import org.junit.Before;
