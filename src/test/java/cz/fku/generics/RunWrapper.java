@@ -1,7 +1,10 @@
-package cz.fku.generics.wrapper;
+package cz.fku.generics;
 
 import cz.fku.generics.c.C1;
 import cz.fku.generics.c.C2;
+import cz.fku.generics.wrapper.Wrapper;
+import cz.fku.generics.wrapper.WrapperUtil;
+import org.junit.Test;
 
 /**
  * Created by Filip on 01.04.2017.
@@ -9,7 +12,9 @@ import cz.fku.generics.c.C2;
  * from book: Beginning Java 8 Language Features
  */
 public class RunWrapper {
-    public static void main(String[] args) {
+
+    @Test
+    public void runWrapper() {
         Wrapper<String> stringWrapper = new Wrapper<>("some string");
         Wrapper<Integer> integerWrapper = new Wrapper<>(2);
 
