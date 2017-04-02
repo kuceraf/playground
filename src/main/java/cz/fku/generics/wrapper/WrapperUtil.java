@@ -30,4 +30,21 @@ public class WrapperUtil {
         System.out.println("SUM: " + sum);
         return sum;
     }
+
+    //LOWER-BOUNDED WILDCARD <? super T>
+//Now you are saying that the dest argument of the copy() method could be either T, same as source,
+// or any of its supertype. You can use the copy() method to copy the contents of a Wrapper<String> to a Wrapper<Object>
+    public static <T> void copy(Wrapper<T> source, Wrapper<? super T> dest){
+        T value = source.get();
+        dest.set(value);
+    }
+
+    //varargs
+    public static void process(Wrapper<Long>...nums) {
+        Object[] obj = nums; // Heap pollution
+        obj[0] = new Wrapper<String>("Hello"); // Array corruption
+        Long lv = nums[0].get(); // A ClassCastException
+        // Other code goes here
+    }
+
 }

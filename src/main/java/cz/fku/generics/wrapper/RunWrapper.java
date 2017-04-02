@@ -41,6 +41,24 @@ public class RunWrapper {
         //because it cannot make sure at compile time that numberWrapper is a type of Integer or Double,
         //which are subtypes of a Number.
 //        numberWrapperInt.set(1L);
-//        numberWrapperInt.set(1);
+//        numberWrapperInt.set(1L);
+
+        //LOWER-BOUNDED WILDCARD <? super T>
+        Wrapper<Object> objectWrapper = new Wrapper<Object>(new Object());
+        Wrapper<String> stringWrapper2 = new Wrapper<String>("Hello");
+        //Since Object is the supertype of String, the new copy() method will work. (but not in opposite direction)
+        //1. let compiler infer the type parameter T
+        WrapperUtil.copy(stringWrapper2, objectWrapper);
+        //2. specify actual parameter type
+        WrapperUtil.<String>copy(stringWrapper2, objectWrapper);
+
+        //Compile time type erasure
+        Wrapper<String> a = new Wrapper<String>("Hello");
+        Wrapper<Integer> b = new Wrapper<Integer>(new Integer(123));
+        Class aClass = a.getClass();
+        Class bClass = b.getClass();
+        System.out.println("Class for a: " + aClass.getName());
+        System.out.println("Class for b: " + bClass.getName());
+        System.out.println("aClass == bClass: " + (aClass == bClass));
     }
 }
