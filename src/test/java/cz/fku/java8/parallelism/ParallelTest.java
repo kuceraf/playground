@@ -2,6 +2,7 @@ package cz.fku.java8.parallelism;
 
 import cz.fku.java8.LambdaExamples;
 import cz.fku.parallelism.Accumulator;
+import cz.fku.parallelism.ForkJoinSumCalculator;
 import cz.fku.parallelism.ParallelStream;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -88,4 +89,9 @@ public class ParallelTest {
                 measureSumPerf(ParallelStream::rangedParallelSum, 10_000_000L) + " msecs" );
     }
 
+    @Test
+    public void forkJoinSumTest() {
+        System.out.println("ForkJoin sum done in: " + measureSumPerf(
+                ForkJoinSumCalculator::forkJoinSum, 10_000_000) + " msecs" );
+    }
 }
