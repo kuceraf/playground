@@ -72,6 +72,26 @@ public class WordCounterEx {
         }
     }
 
+    //4. REFERENCE TO AN STATIC METHOD
+    public int countWordsStatic(Stream<Character> stream) {
+        WordCounterEx wordCounter = stream.reduce(new WordCounterEx(0, true),
+                WordCounterEx::accumulateStatic,
+                WordCounterEx::combine);
+        return wordCounter.counter;
+    }
+
+    public static WordCounterEx accumulateStatic(WordCounterEx wc,Character c) {
+        if(Character.isWhitespace(c)) {
+            return wc.lastSpace ?
+                    wc :
+                    new WordCounterEx(wc.counter, true);
+        } else {
+            return wc.lastSpace ?
+                    new WordCounterEx(wc.counter+1, false) :
+                    wc;
+        }
+    }
+
     public WordCounterEx combine(WordCounterEx wordCounter) {
         return new WordCounterEx(counter + wordCounter.counter
                 ,wordCounter.lastSpace /*does not matter*/);
