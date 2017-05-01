@@ -1,13 +1,17 @@
 package cz.fku.java8.function.stream;
 
 import com.google.common.collect.Interner;
+import cz.fku.java8.parallelism.WordCounter;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,6 +23,8 @@ import static org.junit.Assert.assertEquals;
  * Reduction reduce elements to a single summary value using combining function
  */
 public class ReductionTest {
+    final private org.slf4j.Logger logger = LoggerFactory.getLogger(ReductionTest.class);
+
 
     @Test
     public void testReduction() {
