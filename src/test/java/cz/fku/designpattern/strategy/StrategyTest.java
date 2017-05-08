@@ -18,5 +18,13 @@ public class StrategyTest {
 
         Validator lowerCaseValidator = new Validator(new IsAllLowerCase());
         Assert.assertTrue(lowerCaseValidator.validate("bbbb"));
+
+        //STRATEGY WITH LAMBDA
+        //it not necessary implement interface to introduce new behavior (ValidationStrategy is functional interface)
+        Validator lowerCaseValidatorLambda = new Validator(
+            s -> s.matches("[a-z]+")
+        );
+        Assert.assertTrue(lowerCaseValidatorLambda.validate("bbbb"));
+
     }
 }
