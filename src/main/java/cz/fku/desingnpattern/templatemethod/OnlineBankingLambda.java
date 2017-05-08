@@ -9,6 +9,7 @@ import java.util.function.Consumer;
  */
 public class OnlineBankingLambda {
 
+    //Consumer<Customer> matches the method signature of OnlineBanking#makeCustomerHappy
     public void processCustomer(int id, Consumer<Customer> makeCustomerHappy){
         Customer c = Database.getCustomerWithId(id);
         makeCustomerHappy.accept(c);

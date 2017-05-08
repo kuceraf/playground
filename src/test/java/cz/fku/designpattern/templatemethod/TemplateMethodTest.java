@@ -23,7 +23,7 @@ public class TemplateMethodTest {
         onlineBankingPoints.processCustomer(1);
 
         //The different components of the algorithms you want to plug in can be represented by lambda expressions
-        //or method references.
+        //or method references - we do'nt have to subclass OnlineBanking
         OnlineBankingLambda onlineBankingLambda = new OnlineBankingLambda();
         onlineBankingLambda.processCustomer(1, onlineBankingDiscount::makeCustomerHappy);
         onlineBankingLambda.processCustomer(1, (Customer c) -> logger.info("Customer process from lambda: " + c.getName() ));
